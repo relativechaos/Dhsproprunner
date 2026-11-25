@@ -753,7 +753,7 @@ async function lbFetch(){
   try{
     const r=await fetch(LBCFG.url);
     const j=await r.json();
-    lbScores=(j.record&&j.record.scores)||[];
+    lbScores=(j.record&&j.record.scores)||(j.scores)||[];
     lbSaveList(lbScores);
   }catch(e){ lbScores=lbLoad(); }
   renderBoard();
@@ -764,7 +764,7 @@ async function lbPush(entry){
   try{
     const r=await fetch(LBCFG.url);
     const j=await r.json();
-    const cloud=(j.record&&j.record.scores)||[];
+    const cloud=(j.record&&j.record.scores)||(j.scores)||[];
     const seen=new Set();
     merged=cloud.concat(merged).filter(e=>{
       const k=e.name+"|"+e.score+"|"+(e.timestamp||e.date||"");
