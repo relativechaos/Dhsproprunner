@@ -160,9 +160,9 @@
           <div class="k"><span class="dot d-rb"></span>Red Bull = power</div>
           <div class="k"><span class="dot d-hole"></span>Manhole = hitch damage</div>
           <div class="k"><span class="dot d-deb"></span>Debris = blowout</div>
-          <div class="k"><span class="dot d-stone"></span>Torreón Stones · Lv 1</div>
-          <div class="k"><span class="dot d-hb"></span>O'Fallon Hoverboards · Lv 2</div>
-          <div class="k"><span class="dot d-bike"></span>Siloam Springs Bike · Lv 3</div>
+          <div class="k"><span class="dot d-stone"></span>Stone Ruins · Lv 1</div>
+          <div class="k"><span class="dot d-hb"></span>Hoverboards · Lv 2</div>
+          <div class="k"><span class="dot d-bike"></span>Blue Bike · Lv 3</div>
           <div class="k"><span class="dot d-chicken"></span>Trombone Chicken · Lv 4</div>
           <div class="k"><span class="dot d-wc"></span>Bathroom stop = relief</div>
           <div class="k"><span class="dot" style="background:radial-gradient(circle at 35% 30%,#ffd34d,#f0a500)"></span>Air horn fend-off</div>
@@ -197,7 +197,7 @@
         <div class="tabs" id="lbTabs">
           <button class="tab on" data-l="0">Lv 1 · Bowl</button>
           <button class="tab" data-l="1">Lv 2 · State</button>
-          <button class="tab" data-l="2">Lv 3 · BOA</button>
+          <button class="tab" data-l="2">Lv 3 · STL</button>
           <button class="tab" data-l="3">Lv 4 · Nationals</button>
         </div>
         <ol class="lblist" id="lbList"></ol>
@@ -240,22 +240,22 @@ const ROAD_L = 96, ROAD_R = 384, ROAD_W = ROAD_R - ROAD_L;
 const PX_PER_M = 10;
 const RIVAL = ["hb","stone","chicken","bike"];
 const LEVELS = [
- { dest:"Downers Grove South · Marching Mustang Music Bowl", short:"the Music Bowl",
+ { dest:"The Music Bowl", short:"the Music Bowl",
    rival:"stone",
-   brief:"Help the Barbs reach the Marching Mustang Music Bowl at Downers Grove South! Lincoln-Way's show “Torreón” is rolling down the same highway — dodge their stone ruins, inspired by Machu Picchu.",
-   winSub:"The Mustangs are impressed. Next stop: State!"},
- { dest:"Illinois State University · State Finals", short:"State at ISU",
+   brief:"Help the Barbs reach the Music Bowl! Rival crews are hauling stone ruins down the same highway \u2014 dodge every one.",
+   winSub:"The crowd loved the show. Next stop: State!"},
+ { dest:"The State Championship", short:"State",
    rival:"hb",
-   brief:"Help the Barbs get to STATE at Illinois State University! The O'Fallon hoverboard crew is back on the road — air horn ready.",
+   brief:"Help the Barbs get to the State Championship! The rival hoverboard crew is back on the road \u2014 air horn ready.",
    winSub:"State Finals, here they come! One more road to conquer."},
- { dest:"Bands of America · St. Louis", short:"BOA St. Louis",
+ { dest:"The St. Louis Contest", short:"the St. Louis contest",
    rival:"bike",
-   brief:"Help the Barbs get to Bands of America in St. Louis! Watch out — the Siloam Springs crew is riding a blue bike down the highway.",
-   winSub:"St. Louis conquered. One road left — the big one."},
- { dest:"BOA Grand Nationals · Indianapolis", short:"Grand Nationals",
+   brief:"Help the Barbs get to the contest in St. Louis! Watch out \u2014 a rival crew is riding a blue bike down the highway.",
+   winSub:"St. Louis conquered. One road left \u2014 the big one."},
+ { dest:"The Grand National Championship", short:"Grand Nationals",
    rival:"chicken",
-   brief:"Help the Barbs get to Bands of America GRAND NATIONALS in Indianapolis! Guarding the final road: the legendary chicken playing a trombone. Dodge it — and do NOT ask why.",
-   winSub:"The Marching Barbs are ready to perform — all thanks to you!"}
+   brief:"Help the Barbs get to the Grand National Championship! Guarding the final road: the legendary chicken playing a trombone. Dodge it \u2014 and do NOT ask why.",
+   winSub:"The Marching Barbs are ready to perform \u2014 all thanks to you!"}
 ];
 function goalM(){ return 2000 + S.level*500; }
 const $ = id => document.getElementById(id);
@@ -434,10 +434,10 @@ function update(dt){
       }else if(RIVAL.includes(e.type)){
         S.ents.splice(i,1); S.shake=14;
         S.power=Math.max(0,S.power-18); S.score=Math.max(0,S.score-40);
-        const strike = e.type==="stone"? ["TORREÓN STRIKE! -40","#c9a13b"]
+        const strike = e.type==="stone"? ["STONE STRIKE! -40","#c9a13b"]
                      : e.type==="bike"?   ["BIKE SLAM! -40","#7fc0f0"]
                      : e.type==="chicken"? ["PECKED! -40","#fff"]
-                     : ["OTHS STRIKE! -40","#c9a1ff"];
+                     : ["HOVERBOARD STRIKE! -40","#c9a1ff"];
         S.fx.push({t:"txt",x:e.x,y:e.y,txt:strike[0],life:1.1,col:strike[1]});
         blip(140,.2,"square",.18);
         navigator.vibrate && navigator.vibrate(90);
@@ -523,7 +523,7 @@ function draw(){
       ctx.fillStyle="#f2c230"; ctx.fillRect(-20,-2,40,4);
       ctx.fillStyle="#2a1a3e"; ctx.beginPath(); ctx.arc(0,-14,7,0,7); ctx.fill();
       ctx.fillStyle="#f2c230"; ctx.font="bold 8px Arial"; ctx.textAlign="center"; ctx.fillText("O",0,-11);
-      ctx.fillStyle="#fff"; ctx.font="bold 8px Arial"; ctx.fillText("OTHS",0,13);
+      ctx.fillStyle="#fff"; ctx.font="bold 8px Arial"; ctx.fillText("RIVAL",0,13);
       ctx.restore();
     }else if(e.type==="stone"){
       ctx.save(); ctx.translate(e.x,e.y); e.a=(e.a||0)+0.055; ctx.rotate(e.a);
